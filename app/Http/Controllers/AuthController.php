@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Mail\SendEmailNotification;
@@ -21,7 +20,6 @@ class AuthController extends Controller
     public function registerPage(){
         return view('auth.register');
     }
-
     public function login(LoginRequest $request)
     {
         $validated = $request->validated();
@@ -35,7 +33,6 @@ class AuthController extends Controller
         }
         return redirect()->route('loginPage')->withErrors(['email' => 'Неверные учетные данные.']);
     }
-
     public function register(RegisterRequest $request)
     {
         $user = new User();
@@ -49,7 +46,6 @@ class AuthController extends Controller
             return redirect()->route('loginPage')->with('success', 'Регистрация прошла успешно! Проверьте вашу почту для подтверждения.');
         }
     }
-
     public function verifyEmail(Request $request)
     {
         $token = $request->query('token');
@@ -58,12 +54,10 @@ class AuthController extends Controller
         $user->update();
         return redirect('/loginPage');
     }
-
     public function resendPage()
     {
         return view('auth.resend');
     }
-
     public function resend(Request $request)
     {
         $user = User::where('email', $request->email)->first();
